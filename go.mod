@@ -1,4 +1,4 @@
-module github.com/cloudwalkio/db-migration-scripts
+module github.com/cloudwalkio/psql-compare
 
 go 1.19
 

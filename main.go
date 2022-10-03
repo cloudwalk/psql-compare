@@ -10,10 +10,10 @@ import "os"
 func main() {
 	SlotName := os.Getenv("SLOT_NAME")
 	SubName := os.Getenv("SUB_NAME")
+	CalculateReplicationLag(SlotName, SubName)
 
 	//CompareSize()
 	//CompareCount()
-	// CompareRelTuples()
-	CalculateReplicationLag(SlotName, SubName)
+	//CompareRelTuples()
 	//CompareSequenceID()
 }

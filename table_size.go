@@ -54,6 +54,10 @@ func CompareSize() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		if s.Name == "pg_stat_statements" {
+			continue
+		}
+
 		tables = append(tables, &s)
 	}
 
@@ -73,6 +77,10 @@ func CompareSize() {
 		err = rows.Scan(&name, &size)
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		if name == "pg_stat_statements" {
+			continue
 		}
 
 		for _, s := range tables {
