@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -43,12 +42,8 @@ func CompareCount() {
 func CalculateSrcCount(t *Table) {
 	wg.Add(1)
 	defer wg.Done()
-	var rows *sql.Rows
-	var err error
 
-	defer rows.Close()
-
-	rows, err = srcDB.Query(`SELECT count(*) FROM ` + t.Name)
+	rows, err := srcDB.Query(`SELECT count(*) FROM ` + t.Name)
 	if err != nil {
 		log.Printf("Table:%s Error:%v", t.Name, err)
 		<-guard
@@ -64,6 +59,8 @@ func CalculateSrcCount(t *Table) {
 		<-guard
 		return
 	}
+
+	rows.Close()
 	//fmt.Println("SRC:", t.Name, t.SourceCount, t.DestCount)
 	<-guard
 }
@@ -71,12 +68,8 @@ func CalculateSrcCount(t *Table) {
 func CalculateDestCount(t *Table) {
 	wg.Add(1)
 	defer wg.Done()
-	var rows *sql.Rows
-	var err error
 
-	defer rows.Close()
-
-	rows, err = destDB.Query(`SELECT count(*) FROM ` + t.Name)
+	rows, err := destDB.Query(`SELECT count(*) FROM ` + t.Name)
 	if err != nil {
 		log.Printf("Table:%s Error:%v", t.Name, err)
 		<-guard
@@ -92,6 +85,7 @@ func CalculateDestCount(t *Table) {
 		<-guard
 		return
 	}
+	rows.Close()
 	//fmt.Println("DEST:", t.Name, t.SourceCount, t.DestCount)
 	<-guard
 }
