@@ -14,11 +14,11 @@ var srcDB, destDB *sql.DB
 
 func init() {
 	var err error
-	srcDB, err = sql.Open("postgres", os.Getenv("SRC_CONN"))
+	srcDB, err = sql.Open("postgres", os.Getenv("SRC"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	destDB, err = sql.Open("postgres", os.Getenv("DST_CONN"))
+	destDB, err = sql.Open("postgres", os.Getenv("DST"))
 	if err != nil {
 		log.Fatal(err)
 	}
